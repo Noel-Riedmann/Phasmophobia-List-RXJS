@@ -1,0 +1,49 @@
+<div class="headinfo">
+  <h2>This is a list</h2>
+  <p>With a lot of text you can read.</p>
+</div>
+<div class="filter">
+  <form [formGroup]="formGroup">
+    <input type="text" class="form-control" name="filter" placeholder="Filter ghosts" formControlName="filter" />
+  </form>
+</div>
+<div class="list mat-elevation-z20">
+  <mat-table class="demo-table" [dataSource]="ghosts">
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">{{ row.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Evidence">
+      <mat-header-cell *matHeaderCellDef>Evidence</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="evidence" *ngFor="let evidence of row.evidence.$values">
+          {{ evidence.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Speed">
+      <mat-header-cell *matHeaderCellDef>Speed</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="speed" *ngFor="let speed of row.speed.$values">
+          {{ speed.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="SanityThreshold">
+      <mat-header-cell *matHeaderCellDef>Sanity Threshold</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="sanityThreshold" *ngFor="let sanityThreshold of row.sanityThreshold.$values">
+          {{ sanityThreshold.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
