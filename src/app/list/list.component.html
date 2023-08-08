@@ -4,11 +4,20 @@
 </div>
 <div class="filter">
   <form [formGroup]="formGroup">
-    <input type="text" class="form-control" name="filter" placeholder="Filter ghosts" formControlName="filter" />
+    <mat-form-field>
+      <input matInput type="text" placeholder="Filter ghosts" formControlName="search" />
+    </mat-form-field>
+    <div formArrayName="evidence">
+      <div *ngFor="let evidence of evidences; let i = index">
+        <mat-checkbox [formControlName]="i">{{ evidence.name }}</mat-checkbox>
+      </div>
+    </div>
   </form>
 </div>
+
+
 <div class="list mat-elevation-z20">
-  <mat-table class="demo-table" [dataSource]="ghosts">
+  <mat-table class="demo-table" [dataSource]="(filteredGhosts$ | async) ?? []">
     <ng-container matColumnDef="Name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
       <mat-cell *matCellDef="let row" class="mat-cell">{{ row.name }}</mat-cell>
@@ -46,4 +55,3 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-
