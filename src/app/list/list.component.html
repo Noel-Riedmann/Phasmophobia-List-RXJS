@@ -3,15 +3,43 @@
   <p>With a lot of text you can read.</p>
 </div>
 <div class="filter">
-  <form [formGroup]="formGroup">
-    <mat-form-field>
-      <input matInput type="text" placeholder="Filter ghosts" formControlName="search" />
-    </mat-form-field>
+  <form [formGroup]="formGroup" class="filterForm">
+    <div class="searchField">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Filter ghosts" formControlName="search" [matAutocomplete]="auto" />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of autocompleteNames | async" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+
+
+      <div class="evidence-chart">
+        <google-chart type="Bar" [data]="evidenceChartData" [options]="evidenceChartOptions"></google-chart>
+      </div>
+    </div>
     <div formArrayName="evidence">
       <div *ngFor="let evidence of evidences; let i = index">
         <mat-checkbox [formControlName]="i">{{ evidence.name }}</mat-checkbox>
       </div>
     </div>
+    <div formArrayName="speed">
+      <div *ngFor="let speed of speeds; let i = index">
+        <mat-checkbox [formControlName]="i">{{ speed.name }}</mat-checkbox>
+      </div>
+    </div>
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button>Basic</button>
+        <button mat-raised-button color="primary">Primary</button>
+        <button mat-raised-button color="accent">Accent</button>
+        <button mat-raised-button color="warn">Warn</button>
+        <button mat-raised-button disabled>Disabled</button>
+        <a mat-raised-button href="https://phasmophobia-journal-61482.firebaseapp.com/ghosts" target="_blank">Link</a>
+      </div>
+    </section>
   </form>
 </div>
 
