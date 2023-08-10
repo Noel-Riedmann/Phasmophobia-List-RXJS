@@ -31,3 +31,22 @@
 .filter{
   margin: 30px;
 }
+
+.filterForm > *:not(:last-child) {
+  display: block;
+  margin-right: 50px;
+}
+
+.filterForm{
+  display: flex;
+  flex-direction: row;
+}
+
+.example-button-row{
+  display: flex;
+  flex-direction: column;
+}
+
+.example-button-row > *:not(:last-child){
+  margin-bottom: 10px;
+}

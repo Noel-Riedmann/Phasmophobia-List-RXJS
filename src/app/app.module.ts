@@ -12,7 +12,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { GoogleChartsModule  } from 'angular-google-charts';
+
+
 
 
 
@@ -33,7 +37,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     MatTableModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule,
+    GoogleChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
