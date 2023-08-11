@@ -46,6 +46,7 @@
   <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('SteppedAreaChart')" [disabled]="chartType === 'SteppedAreaChart'">Stepped Area</button>
   <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('Histogram')" [disabled]="chartType === 'Histogram'">Histogram</button>
   <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('Table')" [disabled]="chartType === 'Table'">Table</button>
+  <h2>{{chartType}}</h2>
 
   <div class="chart" [hidden]="!showChart">
     <google-chart *ngIf="showChart" [data]="evidenceChart"></google-chart>
