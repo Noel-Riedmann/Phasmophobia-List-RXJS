@@ -41,24 +41,36 @@ export class ListComponent implements OnInit {
     )
   });
 
+  chartType: string = 'ColumnChart';
+
   filteredGhosts$: Observable<Ghost[]> = of([]);
 
   constructor(
     private listService: ListService,
     private formBuilder: FormBuilder
   ) { }
+  changeChartType(type: string){
+    this.chartType = type;
+    this.evidenceChart.chartType = type; // Update chart type
+    this.showChart = false; // Hide chart
+    setTimeout(() => {
+      this.showChart = true; // Show chart after a short delay
+    }, 0);
+  }
+
+
+
 
   evidenceChart: GoogleChartInterface = {
-    chartType: 'ColumnChart',
+    chartType: this.chartType,
     dataTable: [
       ['Evidence', 'Frequency']
     ],
     options: {
-      title: 'Evidence Frequency',
+      title: 'Evidence Frequency amongst all Ghosts',
       chartArea: { width: '50%' },
-      hAxis: { title: 'Evidence', minValue: 0 },
+      hAxis: {minValue: 0 },
       vAxis: {
-        title: 'Frequency',
         ticks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
       },
       height: 600,
@@ -67,6 +79,7 @@ export class ListComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    // Fetch ghosts data and prepare evidence chart data
     this.listService.getGhosts().subscribe((ghosts: Ghost[]) => {
       this.ghosts = ghosts;
       this.prepareEvidenceChartData();
@@ -85,6 +98,8 @@ export class ListComponent implements OnInit {
         }),
         map((value: string) => this._filter(value))
       );
+
+    // Update the evidence chart data whenever any form control changes
     this.filteredGhosts$ = combineLatest([
       this.listService.getGhosts(),
       this.formGroup.controls.search.valueChanges.pipe(startWith('')),
@@ -92,6 +107,10 @@ export class ListComponent implements OnInit {
       this.formGroup.controls.speed.valueChanges.pipe(startWith([]))
     ]).pipe(
       map(([allGhosts, search, evidence, speed]) => {
+        // Update the evidence chart data
+        this.prepareEvidenceChartData();
+
+        // Return filtered ghosts based on filters
         return this.filterGhosts(
           {
             search: search,
@@ -103,6 +122,7 @@ export class ListComponent implements OnInit {
       })
     );
   }
+
 
   private filterGhosts(
     filters:
@@ -171,6 +191,8 @@ export class ListComponent implements OnInit {
       ]
     };
   }
+
+
   showChart = true;
 
   toggleChart() {

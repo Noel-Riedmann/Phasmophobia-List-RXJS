@@ -3,8 +3,7 @@
 }
 
 .chart{
-  min-width: 80rem;
-  height: 20rem;
+  margin: 40px;
 }
 
 .toggleChartBtn{
@@ -28,6 +27,14 @@
 
 .demo-row-is-clicked {
   font-weight: bold;
+}
+
+.ChartTypeButton{
+  margin-right: 10px;
+}
+
+.chartOverall{
+  margin-left: 30px;
 }
 
 .mat-column-Evidence {

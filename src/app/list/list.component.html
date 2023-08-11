@@ -31,18 +31,27 @@
         <button mat-raised-button color="accent">Accent</button>
         <button mat-raised-button color="warn">Warn</button>
         <button mat-raised-button disabled>Disabled</button>
-        <a mat-raised-button href="https://phasmophobia-journal-61482.firebaseapp.com/ghosts" target="_blank">Link</a>
+        <a mat-raised-button href="https://phasmophobia-journal.com" target="_blank">Link</a>
       </div>
     </section>
   </form>
 </div>
 
 <button class="toggleChartBtn" color="accent" mat-raised-button (click)="toggleChart()">Toggle Chart</button>
-<div *ngIf="showChart">
-  <div class="chart">
-    <google-chart [data]="evidenceChart"></google-chart>
+<div class="chartOverall" *ngIf="showChart">
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('ColumnChart')" [disabled]="chartType === 'ColumnChart'">Column</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('BarChart')" [disabled]="chartType === 'BarChart'">Bar</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('PieChart')" [disabled]="chartType === 'PieChart'">Pie</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('AreaChart')" [disabled]="chartType === 'AreaChart'">Area</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('SteppedAreaChart')" [disabled]="chartType === 'SteppedAreaChart'">Stepped Area</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('Histogram')" [disabled]="chartType === 'Histogram'">Histogram</button>
+  <button class="ChartTypeButton" mat-raised-button (click)="changeChartType('Table')" [disabled]="chartType === 'Table'">Table</button>
+
+  <div class="chart" [hidden]="!showChart">
+    <google-chart *ngIf="showChart" [data]="evidenceChart"></google-chart>
   </div>
 </div>
+
 
 
 
