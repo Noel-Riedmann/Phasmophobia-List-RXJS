@@ -1,0 +1,87 @@
+<div class="headinfo">
+  <h2>This is a list</h2>
+  <p>With a lot of text you can read.</p>
+</div>
+<div class="filter">
+  <form [formGroup]="formGroup" class="filterForm">
+    <div class="searchField">
+      <mat-form-field>
+        <input matInput type="text" placeholder="Filter ghosts" formControlName="search" [matAutocomplete]="auto" />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of autocompleteNames | async" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div formArrayName="evidence">
+      <div *ngFor="let evidence of evidences; let i = index">
+        <mat-checkbox [formControlName]="i">{{ evidence.name }}</mat-checkbox>
+      </div>
+    </div>
+    <div formArrayName="speed">
+      <div *ngFor="let speed of speeds; let i = index">
+        <mat-checkbox [formControlName]="i">{{ speed.name }}</mat-checkbox>
+      </div>
+    </div>
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button>Basic</button>
+        <button mat-raised-button color="primary">Primary</button>
+        <button mat-raised-button color="accent">Accent</button>
+        <button mat-raised-button color="warn">Warn</button>
+        <button mat-raised-button disabled>Disabled</button>
+        <a mat-raised-button href="https://phasmophobia-journal-61482.firebaseapp.com/ghosts" target="_blank">Link</a>
+      </div>
+    </section>
+  </form>
+</div>
+
+<button class="toggleChartBtn" color="accent" mat-raised-button (click)="toggleChart()">Toggle Chart</button>
+<div *ngIf="showChart">
+  <div class="chart">
+    <google-chart [data]="evidenceChart"></google-chart>
+  </div>
+</div>
+
+
+
+<div class="list mat-elevation-z20">
+  <mat-table class="demo-table" [dataSource]="(filteredGhosts$ | async) ?? []">
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">{{ row.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Evidence">
+      <mat-header-cell *matHeaderCellDef>Evidence</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="evidence" *ngFor="let evidence of row.evidence.$values">
+          {{ evidence.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Speed">
+      <mat-header-cell *matHeaderCellDef>Speed</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="speed" *ngFor="let speed of row.speed.$values">
+          {{ speed.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="SanityThreshold">
+      <mat-header-cell *matHeaderCellDef>Sanity Threshold</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="mat-cell">
+        <span class="sanityThreshold" *ngFor="let sanityThreshold of row.sanityThreshold.$values">
+          {{ sanityThreshold.name }} &nbsp;&nbsp;
+        </span>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

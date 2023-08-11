@@ -1,0 +1,62 @@
+.list{
+  margin: 30px;
+}
+
+.chart{
+  min-width: 80rem;
+  height: 20rem;
+}
+
+.toggleChartBtn{
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.demo-table {
+  width: 100%;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.mat-column-Evidence {
+  flex: 6;
+}
+
+.headinfo{
+  margin: 30px;
+}
+
+.filter{
+  margin: 30px;
+}
+
+.filterForm > *:not(:last-child) {
+  display: block;
+  margin-right: 50px;
+}
+
+.filterForm{
+  display: flex;
+  flex-direction: row;
+}
+
+.example-button-row{
+  display: flex;
+  flex-direction: column;
+}
+
+.example-button-row > *:not(:last-child){
+  margin-bottom: 10px;
+}
